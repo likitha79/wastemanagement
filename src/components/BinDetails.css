@@ -1,0 +1,301 @@
+/* ══════════════════════════════
+   Bin Details Modal — Enhanced
+   ══════════════════════════════ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: modalFadeIn .25s ease-out;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(20px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-card {
+  background: #fff;
+  border-radius: 16px;
+  width: 420px;
+  max-width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .2);
+  position: relative;
+  animation: modalSlideUp .3s ease-out;
+  overflow: hidden;
+}
+
+.modal-card-lg {
+  width: 560px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(0, 0, 0, .06);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+  z-index: 2;
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, .12);
+}
+
+/* ── Header ── */
+.modal-header {
+  padding: 28px 28px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 3px solid;
+}
+
+.modal-icon {
+  font-size: 32px;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+
+.modal-subtitle {
+  font-size: 13px;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* ── Body ── */
+.modal-body {
+  padding: 24px 28px 28px;
+  display: flex;
+  gap: 28px;
+}
+
+.modal-body-col {
+  flex-direction: column;
+}
+
+.detail-top-row {
+  display: flex;
+  gap: 28px;
+}
+
+/* ── Gauge ── */
+.gauge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.gauge-bg {
+  width: 48px;
+  height: 140px;
+  background: #f0f0f0;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+}
+
+.gauge-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0 0 22px 22px;
+  transition: height .6s ease;
+}
+
+.gauge-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* ── Detail rows ── */
+.detail-rows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.detail-key {
+  font-size: 13px;
+  color: #888;
+}
+
+.detail-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.detail-badge {
+  padding: 3px 12px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.detail-id {
+  font-size: 11px;
+  font-family: monospace;
+  color: #aaa;
+}
+
+/* ── Chart section ── */
+.detail-chart-section {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.detail-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.detail-chart-wrapper {
+  height: 180px;
+}
+
+/* ── Actions ── */
+.detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-mark-empty {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #2e7d32, #43a047);
+  color: #fff;
+  transition: background .2s, transform .1s;
+}
+
+.btn-mark-empty:hover:not(.btn-disabled) {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+  transform: translateY(-1px);
+}
+
+.btn-mark-empty.btn-disabled {
+  background: #e0e0e0;
+  color: #888;
+  cursor: default;
+}
+
+/* ── Toggle switch ── */
+.notify-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notify-label {
+  font-size: 14px;
+  color: #555;
+}
+
+.toggle-switch {
+  width: 48px;
+  height: 26px;
+  border-radius: 13px;
+  border: none;
+  background: #ccc;
+  position: relative;
+  cursor: pointer;
+  transition: background .25s;
+  padding: 0;
+}
+
+.toggle-switch.toggle-on {
+  background: #4caf50;
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  transition: transform .25s;
+}
+
+.toggle-switch.toggle-on .toggle-knob {
+  transform: translateX(22px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 580px) {
+  .modal-card-lg {
+    width: 100%;
+  }
+
+  .detail-top-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gauge-bg {
+    height: 100px;
+  }
+
+  .detail-chart-wrapper {
+    height: 150px;
+  }
+}
