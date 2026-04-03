@@ -10,7 +10,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    /\.vercel\.app$/
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Connect to MongoDB
@@ -29,72 +37,9 @@ app.use('/api/bins', binsRouter);
 const authRouter = require('./routes/auth');
 app.use('/api/auth', authRouter);
 
-// POST /api/register — Register a new user
+// User model (needed for report, leaderboard, user routes below)
 const User = require('./models/User');
-app.post('/api/register', async (req, res) => {
-  try {
-    const { name, email, password, role } = req.body;
 
-    if (!name || !email || !password || !role) {
-      return res.status(400).json({ message: 'All fields are required (name, email, password, role)' });
-    }
-
-    const existing = await User.findOne({ email });
-    if (existing) {
-      return res.status(400).json({ message: 'Email already registered' });
-    }
-
-    const user = new User({ name, email, password, role });
-    await user.save();
-
-    res.status(201).json({
-      message: 'User registered successfully',
-      user: { id: user._id, name: user.name, email: user.email, role: user.role }
-    });
-  } catch (error) {
-    res.status(400).json({ message: 'Registration failed', error: error.message });
-  }
-});
-
-// POST /api/login — Login a user
-app.post('/api/login', async (req, res) => {
-  try {
-    const { email, password, role } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' });
-    }
-
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
-
-    if (user.password !== password) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
-
-    if (role && user.role !== role) {
-      return res.status(401).json({ message: `This account is not registered as ${role}` });
-    }
-
-    // Award daily login points (+10 if not logged in today)
-    const today = new Date().toDateString();
-    const lastActiveDay = user.lastActive ? new Date(user.lastActive).toDateString() : null;
-    if (lastActiveDay !== today) {
-      user.points = (user.points || 0) + 10;
-    }
-    user.lastActive = Date.now();
-    await user.save();
-
-    res.json({
-      message: 'Login successful',
-      user: { id: user._id, name: user.name, email: user.email, role: user.role, points: user.points, reportsCount: user.reportsCount }
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Login failed', error: error.message });
-  }
-});
 
 // POST /api/report — Submit an issue report
 app.post('/api/report', async (req, res) => {
@@ -160,6 +105,23 @@ app.get('/api/user/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch user', error: error.message });
   }
+});
+
+// 404 catch-all — helps debug missing routes on deployed server
+app.use((req, res) => {
+  res.status(404).json({
+    message: `Route not found: ${req.method} ${req.originalUrl}`,
+    availableRoutes: [
+      'GET  /test',
+      'POST /api/auth/register',
+      'POST /api/auth/login',
+      'GET  /api/bins',
+      'POST /api/bins',
+      'POST /api/report',
+      'GET  /api/leaderboard',
+      'GET  /api/user/:id'
+    ]
+  });
 });
 
 app.listen(PORT, '0.0.0.0', () => {

@@ -53,9 +53,18 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: `This account is not registered as ${role}` });
     }
 
+    // Award daily login points (+10 if not logged in today)
+    const today = new Date().toDateString();
+    const lastActiveDay = user.lastActive ? new Date(user.lastActive).toDateString() : null;
+    if (lastActiveDay !== today) {
+      user.points = (user.points || 0) + 10;
+    }
+    user.lastActive = Date.now();
+    await user.save();
+
     res.json({
       message: 'Login successful',
-      user: { id: user._id, name: user.name, email: user.email, role: user.role }
+      user: { id: user._id, name: user.name, email: user.email, role: user.role, points: user.points, reportsCount: user.reportsCount }
     });
   } catch (error) {
     res.status(500).json({ message: 'Login failed', error: error.message });
