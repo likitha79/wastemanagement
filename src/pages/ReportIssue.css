@@ -1,0 +1,278 @@
+/* ══════════════════════════════
+   Report Issue Page
+   ══════════════════════════════ */
+
+.report-page {
+  max-width: 600px;
+}
+
+.report-form-card {
+  padding: 32px !important;
+}
+
+.report-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.report-subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+/* ── Form groups ── */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  background: #fafafa;
+}
+
+.form-input:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 3px rgba(46,125,50,.1);
+  background: #fff;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ── Select dropdown ── */
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* ── Issue type selector ── */
+.issue-type-group {
+  display: flex;
+  gap: 10px;
+}
+
+.issue-type-btn {
+  flex: 1;
+  padding: 12px 14px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background: #fafafa;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  text-align: center;
+}
+
+.issue-type-btn:hover {
+  border-color: #aaa;
+  background: #f5f5f5;
+}
+
+.issue-type-btn.active.issue-full {
+  border-color: #f44336;
+  background: #ffebee;
+  color: #c62828;
+  font-weight: 600;
+}
+
+.issue-type-btn.active.issue-segregated {
+  border-color: #ff9800;
+  background: #fff8e1;
+  color: #e65100;
+  font-weight: 600;
+}
+
+/* ── Photo upload ── */
+.photo-upload {
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  background: #fafafa;
+}
+
+.photo-upload:hover {
+  border-color: #2e7d32;
+  background: #f5faf5;
+}
+
+.photo-upload.has-photo {
+  border-style: solid;
+  border-color: #c8e6c9;
+  padding: 8px;
+  cursor: default;
+}
+
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #888;
+  font-size: 14px;
+}
+
+.upload-icon {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.upload-hint {
+  font-size: 12px;
+  color: #bbb;
+}
+
+.photo-preview-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.photo-preview {
+  max-height: 200px;
+  max-width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+
+.photo-remove:hover {
+  background: rgba(0,0,0,.8);
+}
+
+/* ── Submit button ── */
+.btn-submit-report {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2e7d32, #43a047);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn-submit-report:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+  transform: translateY(-1px);
+}
+
+.btn-submit-report:disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Success ── */
+.report-success {
+  text-align: center;
+  padding: 60px 32px !important;
+}
+
+.success-icon {
+  font-size: 56px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.report-success h2 {
+  font-size: 22px;
+  color: #2e7d32;
+  margin-bottom: 8px;
+}
+
+.report-success p {
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.success-detail {
+  margin-top: 12px !important;
+  font-size: 14px;
+}
+
+.btn-new-report {
+  margin-top: 24px;
+  padding: 12px 28px;
+  border: 2px solid #2e7d32;
+  border-radius: 10px;
+  background: transparent;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+
+.btn-new-report:hover {
+  background: #e8f5e9;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .report-form-card {
+    padding: 24px 20px !important;
+  }
+}
